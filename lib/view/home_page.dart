@@ -3,8 +3,6 @@
  
 import 'package:climas_app/services/climas_api_cliente.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-
 import '../model/clima.dart';
  
 
