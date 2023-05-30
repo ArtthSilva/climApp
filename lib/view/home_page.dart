@@ -1,6 +1,7 @@
  import 'dart:convert';
 
  
+import 'package:climas_app/services/climas_api_cliente.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -15,18 +16,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  Future<Clima> fetchClima() async {
-    final resp = await http.get(Uri.parse(
-        "https://api.openweathermap.org/data/2.5/weather?q=Brazil&appid=eb4c24df3b5f1e328b247cd8913075c5&units=metric"));
-
-    if (resp.statusCode == 200) {
-      Map<String, dynamic> json = jsonDecode(resp.body);
-
-      return Clima.fromJson(json);
-    } else {
-      throw Exception('erro...');
-    }
-  }
+  ClimasApiCliente clima = ClimasApiCliente();
 
   late Future<Clima> myClima;
 
@@ -34,7 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
      
     super.initState();
-    myClima = fetchClima();
+    myClima = clima.fetchClima();
   }
 
   @override
@@ -100,7 +90,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               height: 10,
                             ),
                             const Text(
-                              '6, 2023',
+                              '5, 2023',
                               style: TextStyle(
                                 color: Colors.white,
                               ),
@@ -166,7 +156,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 Column(
                                   children: [
                                     const Text(
-                                      'humidade',
+                                      'umidade',
                                       style: TextStyle(
                                         color: Colors.white,
                                         fontSize: 15,
@@ -189,17 +179,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                             const SizedBox(
                               height: 30,
-                            ),
-                            ElevatedButton(
-                              onPressed: () {},
-                              style: ElevatedButton.styleFrom(
-                                  backgroundColor: Colors.deepPurpleAccent[100],
-                                  minimumSize: Size(
-                                    MediaQuery.of(context).size.width / 1.1,
-                                    50,
-                                  )),
-                              child: const Text('Veja o clima semanal'),
-                            )
+                            ),                            
                           ],
                         );
                       } else if (snapshot.hasError) {
