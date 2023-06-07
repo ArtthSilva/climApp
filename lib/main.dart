@@ -1,4 +1,4 @@
-import 'package:climas_app/view/home_page.dart';
+import 'package:climas_app/view/home/home_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {

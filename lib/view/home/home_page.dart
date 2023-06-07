@@ -1,11 +1,11 @@
-
+import 'package:climas_app/view/components/card_clima.dart';
 import 'package:flutter/material.dart';
 import 'package:climas_app/controllers/home_controller.dart';
 
-import 'card_clima.dart'; 
- 
+  
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+  
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -13,7 +13,7 @@ class HomeScreen extends StatefulWidget {
 
 final TextEditingController _lugarController = TextEditingController();
 final HomeController homeController = HomeController();
-
+ 
 class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
@@ -26,13 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Localização"),
-        centerTitle: true,
-      ),
-      body: Padding(
-          padding: const EdgeInsets.all(24.0),
-          child: SingleChildScrollView(
+      body: SingleChildScrollView(
               reverse: true,
               child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -43,16 +37,19 @@ class _HomeScreenState extends State<HomeScreen> {
                     const SizedBox(
                       height: 20,
                     ),
-                    TextFormField(
-                      controller: _lugarController,
-                      decoration: InputDecoration(
-                        label: const Text('Informe o lugar'),
-                        suffixIcon: IconButton(
-                          onPressed: () {
-                            homeController.clear();
-                            _lugarController.text = "";
-                          },
-                          icon: const Icon(Icons.close_outlined),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 10, left: 15),
+                      child: TextFormField(
+                        controller: _lugarController,
+                        decoration: InputDecoration(
+                          label: const Text('inform a place'),
+                          suffixIcon: IconButton(
+                            onPressed: () {
+                              homeController.clear();
+                              _lugarController.text = "";
+                            },
+                            icon: const Icon(Icons.close_outlined),
+                          ),
                         ),
                       ),
                     ),
@@ -73,16 +70,18 @@ class _HomeScreenState extends State<HomeScreen> {
                                 .showSnackBar(snackBar);
                           }
                         },
-                        child: const Text("Consultar")),
-                    const SizedBox(
-                      height: 30,
-                    ),
+                        child: const Text('Consult')),
+                    
+                      Container(
+                        height: MediaQuery.sizeOf(context).height * 0.095,
+                      ),
+
                     Visibility(
                         visible: !homeController.isLoading.value &&
                             homeController.clima.value != null,
                         child: CardClima(
                             clima: homeController.clima.value)),
-                  ]))),
+                  ])),
     );
   }
 }

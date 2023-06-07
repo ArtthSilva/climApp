@@ -29,7 +29,6 @@
     data['wind'] = wind;
     return data;
   }
-
-  
+ 
 
  }
